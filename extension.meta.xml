@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension id="countryselect" status="experimental" xmlns="http://symphony-cms.com/schemas/extension/1.0">
+	<name>Country Select Field</name>
+	<description>a countryselectbox field</description>
+	<repo type="github">https://github.com/iwyg/countryselect</repo>
+	<types>
+		<type>field</type>
+	</types>
+	<authors>
+		<author>
+			<name github="iwyg" symphony="iwyg">Thomas Appel</name>
+			<website>http://thomas-appel.com/</website>
+		</author>
+	</authors>
+	<releases>
+		<release version="1.0.0" date="2012-06-18" min="2.3">
+			- initial release
+		</release>
+	</releases>
+</extension>
