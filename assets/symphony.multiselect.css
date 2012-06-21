@@ -86,7 +86,10 @@ vim: set noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
 }
 .option {
 	cursor: pointer;
+	background: whiteSmoke;
+	border-bottom: 1px solid #fff;
 }
+/*
 .option:nth-child(even) {
 	background: whiteSmoke;
 	border-bottom: 1px solid whiteSmoke;
@@ -95,6 +98,7 @@ vim: set noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
 	background: #fefefe;
 	border-bottom: 1px solid #fefefe;
 }
+*/
 .option.selected {
 	background-color: #668abe;
 	background-image: #668abe;
@@ -148,6 +152,17 @@ li.label {
 .frame:after {
 	clear: both;
 }
+.dgt-multiselect li.label {
+	margin: 0 !important;
+}
 .dgt-multiselect input[type=checkbox] {
 	display: none;
+}
+.dgt-multiselect ul.optgroup > .label {
+	font-weight: bold;
+	color: #000;
+}
+.dgt-multiselect ul.optgroup .option {
+	padding-left: 12px;
+	font-weight: normal;
 }

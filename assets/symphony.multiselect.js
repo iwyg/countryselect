@@ -10,11 +10,13 @@ vim: set noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
  * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License
  */
 (function (definition) {
+	var $;
 	if (typeof define === 'function' && define.amd) {
-		define(['jquery'], definition);
+		$ = require('jquery');
 	} else {
-		definition(this.jQuery);
+		$ = this.jQuery;
 	}
+	definition($);
 }(function ($, undefined) {
 
 	var Symphony = this.Symphony;
@@ -106,29 +108,39 @@ vim: set noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 		scrollc = $('<div class="dgt-multiselect dgt-multiselect-scroll"/>'),
 		li,
 		toolbar = $('<div class="toolbar"><a class="select" href="#">' + selectall_text + '</a><a class="unselect" href="#">' + toggle_text + '</a></div>'),
-		newopt = false;
+		newopt = false,
+		lastOptGrp,
+
+		 i = 0,
+
+		optgroups = this._element.find('optgroup');
 
 
 		this._display = button.find('.label');
 
-		this._element.find('option').each(function () {
-			var opt = $(this);
-			if (this.parentNode.tagName.toLowerCase() === 'optgroup') {
-				if (!newopt) {
-					optgroup = $('<li class="optgroup"><ul class="optgroup"><li class="label">' + this.parentNode.label + '</li></ul></li>');
-					optgroup.appendTo(list);
-					li = optgroup.find('ul');
+		this._element.find('optgroup, option').each(function () {
+
+			var el = $(this), name = this.nodeName.toLowerCase();
+			if (name === 'option') {
+				if (!!this.value) {
+					oli = $('<li class="option' + (this.selected ? ' selected' : '') + '"><input class="select-control" type="checkbox"' + (this.selected ? ' checked' : '') + '/><span class="label">' + el.text() + '</span></li>');
+					oli.find('input[type=checkbox]').data('option', el);
 				}
-				newopt = true;
-			} else {
-				li = list;
-				newopt = false;
+				if (lastOptGrp && lastOptGrp.has(this).length) {
+					li.append(oli);
+				} else {
+					li = list;
+					list.append(oli);
+				}
 			}
-			if (!!this.value) {
-				oli = $('<li class="option' + (this.selected ? ' selected' : '') + '"><input class="select-control" type="checkbox"' + (this.selected ? ' checked' : '') + '/><span class="label">' + opt.text() + '</span></li>');
-				oli.find('input[type=checkbox]').data('option', opt);
+			if (name === 'optgroup') {
+				// code
+				i++;
+				lastOptGrp = el;
+				optgroup = $('<li class="optgroup"><ul class="optgroup"><li class="label">' + this.label + '</li></ul></li>');
+				optgroup.appendTo(list);
+				li = optgroup.find('ul');
 			}
-			li.append(oli);
 		});
 		container.append(button);
 		container.append(body);

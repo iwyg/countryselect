@@ -128,9 +128,6 @@ class fieldCountrySelect extends Field
     {
         parent::displaySettingsPanel($wrapper, $errors);
 
-        Administration::instance()->Page->addStylesheetToHead(URL . '/extensions/countryselect/assets/symphony.multiselect.css', 'screen', 100, false);
-        Administration::instance()->Page->addScriptToHead(URL . '/extensions/countryselect/assets/symphony.multiselect.js', 112, false);
-        Administration::instance()->Page->addScriptToHead(URL . '/extensions/countryselect/assets/countryselect.settings.js', 113, false);
 
         $countries = $this->getCountries();
 
