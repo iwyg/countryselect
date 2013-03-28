@@ -24,7 +24,13 @@ class Countrylist
 		$gateway->setopt('URL', 'http://opendata.socrata.com/api/views/mnkm-8ram/rows.xml');
 
 		$response = $gateway->exec();
-		$parsed = new SimpleXMLElement($response);
+
+		if ($response === false) {
+			$parsed = simplexml_load_file(EXTENSIONS . '/countryselect/assets/countries.xml');
+		} else {
+			$parsed = new SimpleXMLElement($response);
+		}
+		
 		$ccodes = array();
 		$row = $parsed->row->row;
 
